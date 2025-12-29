@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Rejestracja</h2>
+<input id="email" placeholder="email">
+<input id="password" type="password" placeholder="hasło">
+<input id="adminId" placeholder="ID od admina">
+<button onclick="register()">Zarejestruj</button>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { createUserWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, setDoc } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+window.register = async () => {
+  const email = email.value;
+  const password = password.value;
+  const adminId = adminId.value;
+
+  const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+  await setDoc(doc(db, "users", cred.user.uid), {
+    adminId: adminId,
+    nick: "nowy",
+    status: "pending",
+    isAdmin: false
+  });
+
+  alert("Konto utworzone. Czekaj na aktywację.");
+};
+</script>
+</body>
+</html>
