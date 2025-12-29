@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Logowanie</h2>
+<input id="email">
+<input id="password" type="password">
+<button onclick="login()">Zaloguj</button>
+
+<script type="module">
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+window.login = async () => {
+  await signInWithEmailAndPassword(auth, email.value, password.value);
+  location.href = "chat.html";
+};
+</script>
+</body>
+</html>
