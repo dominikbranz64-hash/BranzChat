@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+const code = prompt("Kod admina");
+if (code !== "7432") location.href = "/";
+</script>
+
+<h2>ADMIN</h2>
+<button onclick="wipe()">USUŃ WSZYSTKO</button>
+
+<script type="module">
+import { db } from "./firebase.js";
+import {
+  collection, getDocs, deleteDoc, doc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+window.wipe = async () => {
+  if (!confirm("Na pewno?")) return;
+  const cols = ["users","messages"];
+  for (const c of cols) {
+    const snap = await getDocs(collection(db,c));
+    snap.forEach(d => deleteDoc(doc(db,c,d.id)));
+  }
+  alert("WSZYSTKO USUNIĘTE");
+};
+</script>
+</body>
+</html>
